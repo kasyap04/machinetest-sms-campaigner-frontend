@@ -11,12 +11,13 @@ function DashboardAppbar() {
     const closeMenuHandler = () => setOpenMenu(false) ;
 
     return <AppBar 
-        position="static"
+        position="fixed"
         elevation={0} 
         sx={{
             bgcolor: "#fff",
             borderBottom: "1px solid grey",
             px:1,
+            zIndex: (theme) => theme.zIndex.drawer + 1
         }}>
         <Toolbar variant="dense">
             <Typography sx={{flexGrow: 1, color: 'blue'}}>SMS</Typography>

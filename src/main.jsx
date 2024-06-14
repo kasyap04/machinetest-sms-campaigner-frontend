@@ -8,7 +8,7 @@ import { ThemeProvider, createTheme } from '@mui/material'
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#177762",
+      main: "#1141a8",
     },
 
     secondary: {
@@ -18,6 +18,9 @@ const theme = createTheme({
   },
   typography:{
     fontFamily: "Inter, system-ui, Avenir, Helvetica, Arial, sans-serif",
+  },
+  breakpoints: {
+    xs: 0
   }
 }) ;
 

@@ -1,16 +1,18 @@
-import { Home } from "@mui/icons-material";
-import { Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Box, Drawer, List, ListItem, ListItemButton, ListItemText, Toolbar } from "@mui/material";
+
+
 
 
 function SideBar(){
-    return <Box
-            sx={{
-               boxShadow: "3px 2px 4px 1px grey" ,
-               height: "calc(100vh - 50px)",
-               width: "200px"
-            }}
-        >
+    return <Drawer open={true} variant="permanent" elevation={9} sx={{
+        width: 250,
+        flexShrink: 0,
+        [`& .MuiDrawer-paper`]: {
+            width: 250, boxSizing: 'border-box'
+        }
+    }}>
+        <Toolbar />
+        <Box>
         <List>
             <ListItem>
                 <ListItemText primary="SMS Campaigner" component="h6" sx={{color: 'red'}}></ListItemText>
@@ -20,7 +22,9 @@ function SideBar(){
                 <ListItemText primary="Dashboard"></ListItemText>
             </ListItemButton>
         </List>
-    </Box>
+        </Box>
+    </Drawer>
 }
+
 
 export default SideBar ;
