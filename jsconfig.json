@@ -5,7 +5,9 @@
         "src/*": ["./src/*"],
         "service/*" :["./src/service/*"],
         "view/*" :["./src/view/*"],
-        "components/*" :["./src/components/*"]
+        "components/*" :["./src/components/*"],
+        "validation/*": ["./src/validation/*"],
+        "config/*": ["./src/config/*"]
       }
     }
   }

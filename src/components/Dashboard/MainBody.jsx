@@ -4,6 +4,7 @@
 
     import Input from "./Input";
     import ApiService from "service/apiService";
+    import { inputValidation, recipientValidation } from "validation/dashbaord" ;
 
 
 
@@ -51,21 +52,26 @@
             setSnackbarMsg(false);
           };
 
-        let hasError = false ;
-        const handleFormSubmit = () => {
-            let newErrorData = {} ;
-            for(const key in formData){
-                if(!formData[key].trim()){
-                    newErrorData[key] = "Please fill this field";
-                    hasError = true ;
-                }
-            }
+          const handleFormSubmit = async () => {            
+            let [hasError, newErrorData] = inputValidation(formData) ;
             setFormError(newErrorData) ;
             if(hasError) return false ;
 
-            let status = ApiService(formData) ;
+            let newForm = {};
+            [hasError, newForm] = recipientValidation(formData) ;
+            if(hasError){
+                newErrorData = {...newErrorData, ...newForm} ;
+                setFormError(newErrorData) ;
+                return false ;
+            }
+
+            let status = await ApiService({
+                path: "create-campaign",
+                data : newForm
+            }) ;
+
+            setSnackbarMsg(status.msg)
             if(status.status){
-                setSnackbarMsg(status.msg)
             }
         }
 

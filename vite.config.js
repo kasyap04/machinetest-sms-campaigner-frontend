@@ -8,7 +8,9 @@ export default defineConfig({
     alias: {
       view: "/src/view",
       service: "/src/service",
-      components: "/src/components"
+      components: "/src/components",
+      config: "/src/config",
+      validation: "/src/validation"
     }
   }
 })
