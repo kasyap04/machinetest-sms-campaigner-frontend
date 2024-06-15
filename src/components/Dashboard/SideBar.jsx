@@ -2,9 +2,10 @@ import { Box, Drawer, List, ListItem, ListItemButton, ListItemText, Toolbar } fr
 
 
 
-
-function SideBar(){
-    return <Drawer open={true} variant="permanent" elevation={9} sx={{
+function SideBar(props){
+    return <Drawer open={ props.isopen } 
+    variant={props.variant}
+     sx={{
         width: 250,
         flexShrink: 0,
         [`& .MuiDrawer-paper`]: {

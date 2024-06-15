@@ -1,71 +1,138 @@
-import { Box, Button, Container, Stack, Typography } from "@mui/material";
+    import { useState } from "react";
+    import styled from "@emotion/styled";
+    import { Box, Button, Container, Stack, Typography, FormControl, Snackbar } from "@mui/material";
 
-import Input from "./Input";
-import styled from "@emotion/styled";
-
-const StylesLabel = styled(Typography)({
-    marginRight: "40px",
-    textAlign: "end",
-    width: "200px",
-    // backgroundColor: 'lightgreen'
-}) ;
-
-const StylesStack = styled(Stack)({
-    // backgroundColor: "lightblue",
-    justifyContent:"space-between",
-    display:"flex",
-    flexDirection:" row",
-    alignItems: "center",
-    direction:"row",
-    marginBottom:"30px",
-    width:"100%"
-}) ;
+    import Input from "./Input";
+    import ApiService from "service/apiService";
 
 
 
-function MainBody(){
-    return <Container sx={{
+    const StylesLabel = styled(Typography)({
+        marginRight: "40px",
+        textAlign: "end",
+        width: "200px",
+    }) ;
+
+    const StylesStack = styled(Stack)({
+        justifyContent:"space-between",
         display:"flex",
-        justifyContent:"center",
-        marginTop:"10%",
-        // bgcolor: "lightblue",
-        height: "fit-content",
-    }}>
-        <Stack direction="column" sx={{
-            // top:"50%",
-            // transform:"translateY(-25%)",
-            height: "fit-content",
-            width: { md: "70%", sm:"100%" },
-            // bgcolor:"lightcoral",
-        }}>
-            <StylesStack>
-                <StylesLabel>Campaign Name:</StylesLabel>
-                <Input />
-            </StylesStack>
-            <StylesStack>
-                <StylesLabel>Originator:</StylesLabel>
-                <Input />
-            </StylesStack>
-            <StylesStack>
-                <StylesLabel>Recipients:</StylesLabel>
-                <Input 
-                mulitline={true}
-                />
-            </StylesStack>
-            <StylesStack>
-                <StylesLabel>Content:</StylesLabel>
-                <Input 
-                mulitline={true}
-                />
-            </StylesStack>
-            <Box sx={{
-                display: "flex",
-                justifyContent:"end"
-            }}>
-                <Button sx={{px: 5, textTransform: "capitalize"}} variant="contained">Send</Button>
-            </Box>
-        </Stack>
-    </Container>
-}
+        flexDirection:" row",
+        alignItems: "center",
+        direction:"row",
+        marginBottom:"30px",
+        width:"100%"
+    }) ;
 
-export default MainBody ;
+
+
+    function MainBody(){
+        const formField = {
+            campaignName: "",
+            originator: "",
+            recipients: "",
+            content: ""
+        } ;
+
+        const [formData, setFormData]   = useState(formField) ;
+        const [formError, setFormError] = useState(formField) ;
+
+        const handleFormDataChange = (e, field) => {
+            let value = e.target.value ;
+            setFormData({...formData, [field] : value} ) ;
+
+        }
+
+        const [snackbarMsg, setSnackbarMsg] = useState("") ;
+
+        const handleSnackbarClose = (event, reason) => {
+            if (reason === 'clickaway') {
+              return;
+            }
+            setSnackbarMsg(false);
+          };
+
+        let hasError = false ;
+        const handleFormSubmit = () => {
+            let newErrorData = {} ;
+            for(const key in formData){
+                if(!formData[key].trim()){
+                    newErrorData[key] = "Please fill this field";
+                    hasError = true ;
+                }
+            }
+            setFormError(newErrorData) ;
+            if(hasError) return false ;
+
+            let status = ApiService(formData) ;
+            if(status.status){
+                setSnackbarMsg(status.msg)
+            }
+        }
+
+        return <Container sx={{
+            display:"flex",
+            justifyContent:"center",
+            marginTop:"10%",
+            height: "fit-content",
+        }}>
+            <Stack direction="column" sx={{
+                height: "fit-content",
+                width: { md: "70%", sm:"100%" },
+            }}>
+                <FormControl required>
+                    <StylesStack>
+                        <StylesLabel>Campaign Name:</StylesLabel>
+                        <Input
+                            value={formData.campaignName}
+                            handleFormChange={(e) => handleFormDataChange(e, 'campaignName')}
+                            error={formError.campaignName}
+                        />
+                    </StylesStack>
+                    <StylesStack>
+                        <StylesLabel>Originator:</StylesLabel>
+                        <Input 
+                            value={formData.originator}
+                            handleFormChange={(e) => handleFormDataChange(e, 'originator')}
+                            error={formError.originator}
+                        />
+                    </StylesStack>
+                    <StylesStack>
+                        <StylesLabel>Recipients:</StylesLabel>
+                        <Input 
+                            value={formData.recipients}
+                            handleFormChange={(e) => handleFormDataChange(e, 'recipients')}
+                            mulitline={true}
+                            error={formError.recipients}
+                        />
+                    </StylesStack>
+                    <StylesStack>
+                        <StylesLabel>Content:</StylesLabel>
+                        <Input
+                            value={formData.content}
+                            handleFormChange={(e) => handleFormDataChange(e, 'content')}
+                            mulitline={true}
+                            error={formError.content}
+                        />
+                    </StylesStack>
+
+
+                    <Box sx={{
+                        display: "flex",
+                        justifyContent:"end"
+                    }}>
+                        <Button sx={{px: 5, textTransform: "capitalize"}} variant="contained"
+                        onClick={handleFormSubmit}
+                        >Send</Button>
+                    </Box>
+                </FormControl>
+            </Stack>
+            <Snackbar 
+                open={!!snackbarMsg}
+                autoHideDuration={4000}
+                message={snackbarMsg}
+                onClose={handleSnackbarClose}
+            />
+        </Container>
+    }
+
+    export default MainBody ;
