@@ -4,15 +4,12 @@ import BASE_URL from "config/config";
 
 
 async function ApiService({path, data}){
-    let result = {} ;
+    let apiResult = {} ;
 
     await axios.post(`${BASE_URL}${path}`, data)
     .then(result => {
         console.log(result);
-        result = {
-            status : true,
-            msg: "Message send"
-        } ;
+        apiResult = result.data ;
     }).catch(error => {
         result =  {
             status : false,
@@ -20,7 +17,7 @@ async function ApiService({path, data}){
         } ;
     }) ;
 
-    return result ;
+    return apiResult ;
 
 }
 

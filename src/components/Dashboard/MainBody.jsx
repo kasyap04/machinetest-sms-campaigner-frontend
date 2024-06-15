@@ -69,10 +69,8 @@
                 path: "create-campaign",
                 data : newForm
             }) ;
-
+            
             setSnackbarMsg(status.msg)
-            if(status.status){
-            }
         }
 
         return <Container sx={{
