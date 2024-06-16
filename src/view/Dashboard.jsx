@@ -17,13 +17,18 @@ function Dashboard(){
     const auth = async () => {
         let status = await ApiService({path:"auth"}) ;
         if(!status.status){
-            navigate("/login")
+            navigate("/login") ;
         }
     }
 
     useEffect(() => {
         auth() 
     }, [])
+
+    const handleLogout = async () => {
+        await ApiService({path:"logout"}) ;
+        navigate("/login") ;
+    }
 
 
     const mobile = useMediaQuery('(min-width:600px)')
@@ -39,6 +44,7 @@ function Dashboard(){
                 isopen={openSideBar} 
                 sideBarAction={() => setSideBarOpen(!openSideBar)} 
                 mobile={mobile}
+                handleLogout={handleLogout}
             />
             <Stack direction="row" sx={{bgcolor:"transparent", minHeight:"100vh"}}>
                 <SideBar 

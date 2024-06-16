@@ -10,8 +10,8 @@ async function ApiService({path, data}){
     await axios.post(`${BASE_URL}${path}`, data, {
         withCredentials:true,
         headers: {
-            'Access-Control-Allow-Origin': '*', 
-            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json',  
         }
     })
     .then(result => {

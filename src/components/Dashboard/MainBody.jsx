@@ -65,12 +65,17 @@ import { inputValidation, recipientValidation } from "validation/dashbaord" ;
                 return false ;
             }
 
+
             let status = await ApiService({
                 path: "create-campaign",
                 data : newForm
             }) ;
             
             setSnackbarMsg(status.msg)
+
+            if(status.status){
+                setFormData(formField) ;
+            }
         }
 
         return <Container sx={{

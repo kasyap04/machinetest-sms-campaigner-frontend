@@ -20,7 +20,15 @@ function recipientValidation(formData){
             recipients = recipients.substring(0, recipients.length - 1) ;
         }
 
-        let recipientList = recipients.replace("\n", ",").split(',').map(num => num.trim()) ;
+        let recipientList = [] ;
+
+        for(const num of recipients.replace("\n", ",").split(',')){
+            let value = num.trim() ;
+            if(value){
+                recipientList.push(value) ;
+            }
+        }
+
         console.log(recipientList);
 
         for(const num of recipientList){

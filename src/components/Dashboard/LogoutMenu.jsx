@@ -20,7 +20,7 @@ function LogoutMenu(props){
                     color: 'secondary.lightText'
                 }}
                 ></Logout>
-        <Typography>Logout</Typography>
+        <Typography variant="button" onClick={props.handleLogout}>Logout</Typography>
         </MenuItem>
     </Menu>
 }
