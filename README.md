@@ -1,4 +1,5 @@
 # React + Vite
+## Material UI Framework
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
@@ -30,6 +31,11 @@ Currently, two official plugins are available:
     ```bash
     npm install
     ```
+
+## Configuration
+1. (Optional) change `BASE_URL` in `src/config/config.py` as the url of backend (FastAPI)
+
+
 
 ## Running the App
 
