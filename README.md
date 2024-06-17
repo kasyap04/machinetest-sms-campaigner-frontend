@@ -34,7 +34,6 @@ Currently, two official plugins are available:
 
 ## Configuration
 1.  (Optional) change `BASE_URL` in `src/config/config.py` as the url of backend (FastAPI)
-2.  Login credentials : username = admin,  password = admin123
 
 
 
