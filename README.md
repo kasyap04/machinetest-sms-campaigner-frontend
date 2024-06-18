@@ -17,7 +17,7 @@ Currently, two official plugins are available:
 1. Clone the repository to your local machine:
 
     ```bash
-    git clone git@github.com:kasyap04/machinetest-sms-campaigner-frontend.git
+    git clone https://github.com/kasyap04/machinetest-sms-campaigner-frontend.git
     ```
 
 2. Navigate to the project directory:
